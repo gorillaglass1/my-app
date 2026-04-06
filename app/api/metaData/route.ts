@@ -3,8 +3,7 @@ import { NextResponse } from "next/server";
 import { memberServiceImpl } from "@/lib/services/memberServiceImpl";
 import { MemoryMemberRepository } from "@/lib/repositories/memoryMemberRepository";
 
-// 실제 환경에서는 싱글톤 인스턴스를 사용하거나 DI 컨테이너를 고려할 수 있습니다.
-const repo = new MemoryMemberRepository();
+const repo = new MemoryMemberRepository(); // 실제 서비스 개발시에는  싱글톤 및 appCinfig 의존성 관리 해야함
 const service = new memberServiceImpl(repo);
 
 export async function POST(request: Request) {
@@ -22,7 +21,8 @@ export async function GET(request: Request) {
     const id = searchParams.get("id");
     const userId = Number(id);
 
-    if (!userId) return NextResponse.json({ error: "ID 누락" }, { status: 400 });
+    if (userId == null) 
+        return NextResponse.json({ error: "ID 누락" }, { status: 400 });
 
     try {
         const member = await service.findOne(userId);
