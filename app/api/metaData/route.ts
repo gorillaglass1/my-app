@@ -21,9 +21,8 @@ export async function GET(request: Request) {
     const id = searchParams.get("id");
     const userId = Number(id);
 
-    if (userId == null) 
+    if (userId == null)
         return NextResponse.json({ error: "ID 누락" }, { status: 400 });
-
     try {
         const member = await service.findOne(userId);
         return NextResponse.json(member);

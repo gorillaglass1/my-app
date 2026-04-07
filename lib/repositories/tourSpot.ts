@@ -1,7 +1,11 @@
 import { Spot } from "@/types/Spot";
 
-export interface tourSpot {
-    getSpotList(area: string): Promise<Spot[] | null>
-    getSpotListByName(name: string): Promise<Spot[] | null>
-    getSpotByName(name: string): Promise<Spot | null>
+export interface tourSpotRepository {
+    save(spot: Spot): Promise<void>;
+    findById(spotId: string): Promise<Spot | null>;
+    findByName(name: string): Promise<Spot | null>;
+    findAllByName(name: string): Promise<Spot[] | null>;
+    findAllByArea(area: string): Promise<Spot[] | null>;
+    findAll(): Promise<Spot[] | null>;
+    deleteById(spotId: string): Promise<void>;
 }
